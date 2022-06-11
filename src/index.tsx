@@ -1,4 +1,4 @@
-import { ActionPanel, Action, List, showToast, Toast } from "@raycast/api";
+import { ActionPanel, Action, List, showToast, Toast, closeMainWindow, popToRoot } from "@raycast/api";
 import { useState, useEffect, useRef, useCallback } from "react";
 
 import AsciiEmojis from "./asciimoji.js";
@@ -21,18 +21,27 @@ function SearchListItem({ searchResult }: { searchResult: SearchResult }) {
   return (
     <List.Item
       title={searchResult.asciimoji}
-      subtitle={searchResult.name}
       accessoryTitle={searchResult.name}
       actions={
         <ActionPanel>
           <ActionPanel.Section>
-            <Action.Paste title="Paste" content={searchResult.asciimoji} shortcut={{ modifiers: ["cmd"], key: "." }} />
+            <Action.Paste
+              title="Paste in Active App"
+              content={searchResult.asciimoji}
+              onPaste={() => {
+                closeMainWindow();
+                popToRoot();
+              }}
+            />
           </ActionPanel.Section>
           <ActionPanel.Section>
             <Action.CopyToClipboard
-              title="Copy"
+              title="Copy to Clipboard"
               content={searchResult.asciimoji}
-              shortcut={{ modifiers: ["cmd"], key: "." }}
+              onCopy={() => {
+                closeMainWindow();
+                popToRoot();
+              }}
             />
           </ActionPanel.Section>
         </ActionPanel>
