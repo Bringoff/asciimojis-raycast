@@ -7,7 +7,7 @@ export default function Command() {
   const { state, search } = useSearch();
 
   return (
-    <List isLoading={state.isLoading} onSearchTextChange={search} searchBarPlaceholder="Search emojis..." throttle>
+    <List isLoading={state.isLoading} onSearchTextChange={search} searchBarPlaceholder="Search emojis...">
       <List.Section title="Results" subtitle={state.results.length + ""}>
         {state.results.map((searchResult) => (
           <SearchListItem key={searchResult.name} searchResult={searchResult} />
